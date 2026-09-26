@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Text, Touchable, TouchableOpacity, View } from "react-native";
-import { PublicStackParamsList } from "../../routes";
+import { PublicStackParamsList } from "../../routes/PublicRoutes";
 
 export const Login = () => {
     const navigation = useNavigation<StackNavigationProp<PublicStackParamsList>>();
