@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Text } from "react-native";
 import { AppInput } from "../../../Components/AppInput";
+import { AppButton } from "../../../Components/AppButton";
 
 export interface FormLogin {
     email: string;
@@ -29,6 +30,10 @@ export const LoginForm = () => {
             leftIconName="lock-outline"
             secureTextEntry
         />
+
+        <AppButton mode='fill' iconName="arrow-forward">
+            Login
+        </AppButton>
         </>
     )
 }
