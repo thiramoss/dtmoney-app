@@ -7,7 +7,7 @@ import { PublicStackParamsList } from "../../../routes/PublicRoutes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schema";
 
-interface FormRegisterPrams {
+export interface FormRegisterParams {
     email: string;
     name: string;
     password: string;
@@ -16,7 +16,7 @@ interface FormRegisterPrams {
 
 export const RegisterForm = () => {
 
-    const { control, handleSubmit, formState: { isSubmitting } } = useForm<FormRegisterPrams>({
+    const { control, handleSubmit, formState: { isSubmitting } } = useForm<FormRegisterParams>({
         defaultValues: {
             email: "",
             name: "",

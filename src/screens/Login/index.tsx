@@ -5,8 +5,11 @@ import { PublicStackParamsList } from "../../routes/PublicRoutes";
 import { DismissKeyboardView } from "../../Components/DismissKeyboardView";
 import { LoginForm } from "./LoginForm";
 import { AuthHeader } from "../../Components/AuthHeader";
+import { useAuthContext } from "../../context/auth.context";
 
 export const Login = () => {
+
+    const { user } = useAuthContext();
 
     return (
         <DismissKeyboardView>
