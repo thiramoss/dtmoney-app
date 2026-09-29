@@ -4,6 +4,7 @@ import { MaterialIcons } from "@react-native-vector-icons/material-icons";
 import { colors } from "../../shared/colors";
 import clsx from "clsx";
 import { useRef, useState } from "react";
+import { ErrorMessage } from "../ErrorMessage";
 
 
 interface AppInputParams<T extends FieldValues> extends TextInputProps {
@@ -35,7 +36,7 @@ export const AppInput = <T extends FieldValues>({
         <Controller
             control={control}
             name={name}
-            render={({ field: { onChange, value } }) => {
+            render={({ field: { onChange, value } , fieldState: { error }}) => {
                 return (
                     <View className="w-full mt-4">
                         {label &&
@@ -74,6 +75,9 @@ export const AppInput = <T extends FieldValues>({
                                 )
                             }
                         </TouchableOpacity>
+                        {
+                            error && <ErrorMessage> {error.message} </ErrorMessage>
+                        }
                     </View>
                 )
             }}

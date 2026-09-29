@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "dependencies": {
+    "@hookform/resolvers": "^5.9.1",
     "@react-native-masked-view/masked-view": "0.3.2",
     "@react-native-vector-icons/material-icons": "^13.1.4",
     "@react-navigation/native": "^7.4.1",
@@ -15,9 +16,10 @@
     "react-hook-form": "^7.89.0",
     "react-native": "0.86.3",
     "react-native-gesture-handler": "~2.32.0",
-    "react-native-reanimated": "^4.7.0",
+    "react-native-reanimated": "4.5.1",
     "react-native-safe-area-context": "~5.7.0",
-    "react-native-screens": "~4.26.0"
+    "react-native-screens": "~4.26.0",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
