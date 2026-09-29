@@ -7,14 +7,14 @@ import { PublicStackParamsList } from "../../../routes/PublicRoutes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schema";
 
-export interface FormLoginPrams {
+export interface FormLoginParams {
     email: string;
     password: string;
 }
 
 export const LoginForm = () => {
 
-    const { control, handleSubmit, formState: { isSubmitting} } = useForm<FormLoginPrams>({
+    const { control, handleSubmit, formState: { isSubmitting} } = useForm<FormLoginParams>({
         defaultValues: {
             email: "",
             password: ""

@@ -1,0 +1,9 @@
+import { FormLoginParams } from "../../../screens/Login/LoginForm";
+import { dtMoneyApi } from "../../api/dt-money";
+import { IAuthenticateResponse } from "../../interfaces/https/authenticate-response";
+
+export const authenticante = async (userData: FormLoginParams): Promise<IAuthenticateResponse> => {
+    const {data} = await dtMoneyApi.post<IAuthenticateResponse>("/auth/login", userData);
+
+    return data;
+}
