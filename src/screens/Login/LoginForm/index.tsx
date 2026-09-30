@@ -45,6 +45,8 @@ export const LoginForm = () => {
                 name="email"
                 label="EMAIL"
                 placeholder="mail@example.com"
+                autoCapitalize="none"
+                autoCorrect={false}
                 leftIconName="mail-outline"
             />
 
@@ -55,6 +57,8 @@ export const LoginForm = () => {
                 placeholder="Sua senha"
                 leftIconName="lock-outline"
                 secureTextEntry
+                autoCapitalize="none"
+                autoCorrect={false}
             />
 
             <View className="flex-1 justify-between mt-8 mb-6 min-h-[250px]">

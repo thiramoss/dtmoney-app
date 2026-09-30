@@ -6,6 +6,8 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { PublicStackParamsList } from "../../../routes/PublicRoutes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schema";
+import { useAuthContext } from "../../../context/auth.context";
+import { AxiosError } from "axios";
 
 export interface FormRegisterParams {
     email: string;
@@ -26,10 +28,19 @@ export const RegisterForm = () => {
         resolver: yupResolver(schema)
     });
 
+        const {handleRegister} = useAuthContext();
+
         const navigation = useNavigation<NavigationProp<PublicStackParamsList>>();
 
-        const onSubmit = async () => {
-
+        const onSubmit = async (userData: FormRegisterParams) => {
+            try {
+                await handleRegister(userData);
+            } catch (error) {
+                if(error instanceof AxiosError) {
+                    console.log(error.response?.data);
+                }
+                
+            }
         }
     
 
@@ -41,6 +52,7 @@ export const RegisterForm = () => {
                 placeholder="Seu nome"
                 label="NOME"
                 leftIconName="person"
+                autoCorrect={false}
             />
             <AppInput
                 control={control}
@@ -48,6 +60,8 @@ export const RegisterForm = () => {
                 placeholder="mail@example.com"
                 label="EMAIL"
                 leftIconName="mail-outline"
+                autoCapitalize="none"
+                autoCorrect={false}
             />
             <AppInput
                 control={control}
@@ -56,6 +70,8 @@ export const RegisterForm = () => {
                 leftIconName="lock-outline"
                 label="SENHA"
                 secureTextEntry
+                autoCapitalize="none"
+                autoCorrect={false}
             />
             <AppInput
                 control={control}
@@ -64,6 +80,8 @@ export const RegisterForm = () => {
                 leftIconName="lock-outline"
                 label="CONFIRMAR SENHA"
                 secureTextEntry
+                autoCapitalize="none"
+                autoCorrect={false}
             />
 
             <View className="flex-1 justify-between mt-8 mb-6 min-h-[250px]">
