@@ -1,7 +1,6 @@
 import axios from "axios";
-import { Platform } from "react-native";
 
-const baseURL = "https://localhost:3001";
+const baseURL = process.env.EXPO_PUBLIC_API_URL;
     
 
 export const dtMoneyApi = axios.create({
