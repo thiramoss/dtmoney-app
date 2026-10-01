@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import { AppInput } from "../../../Components/AppInput";
 import { AppButton } from "../../../Components/AppButton";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
@@ -10,6 +10,8 @@ import { useAuthContext } from "../../../context/auth.context";
 import { AxiosError } from "axios";
 import { AppError } from "../../../shared/helpers/AppError";
 import { useSnackbarContext } from "../../../context/snackbar.context";
+import { useErrorHandler } from "../../../shared/hooks/useErrorHandler";
+import { colors } from "../../../shared/colors";
 
 export interface FormLoginParams {
     email: string;
@@ -27,6 +29,7 @@ export const LoginForm = () => {
     });
 
     const { handleAuthenticate } = useAuthContext();
+    const { handleError } = useErrorHandler();
     const { notify } = useSnackbarContext();
 
     const navigation = useNavigation<NavigationProp<PublicStackParamsList>>();
@@ -35,12 +38,7 @@ export const LoginForm = () => {
         try {
             await handleAuthenticate(userData);
         } catch (error) {
-            if(error instanceof AppError){
-                notify({
-                    message: error.message,
-                    messageType: "ERROR"
-                });
-            }
+            handleError(error, "Falha ao logar");
         }
     };
 
@@ -69,7 +67,9 @@ export const LoginForm = () => {
 
             <View className="flex-1 justify-between mt-8 mb-6 min-h-[250px]">
                 <AppButton onPress={handleSubmit(onSubmit)} iconName="arrow-forward">
-                    Login
+                    {
+                        isSubmitting ? <ActivityIndicator color={colors.white} /> : "Login"
+                    }
                 </AppButton>
                 <View>
                     <Text className="mb-6 text-gray-600 text-base">Ainda não possui uma conta?</Text>
