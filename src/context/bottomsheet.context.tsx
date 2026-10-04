@@ -33,14 +33,14 @@ export const BottomSheetProvider: FC<PropsWithChildren> = ({ children }) => {
     const handleSheetChanges = useCallback((index: number) => {
         if (index === -1) {
             setIsOpen(false);
-            setContent(null); 
+            setContent(null);
         }
     }, []);
 
     return (
         <BottomSheetContext.Provider value={{ openBottomSheet, closeBottomSheet }}>
             <BottomSheetModalProvider>
-                
+
                 {children}
 
                 {isOpen && (
@@ -49,11 +49,11 @@ export const BottomSheetProvider: FC<PropsWithChildren> = ({ children }) => {
                     </TouchableWithoutFeedback>
                 )}
 
-                <BottomSheetModal 
-                    ref={bottomSheetRef} 
-                    snapPoints={snapPoints} 
-                    style={{zIndex: 2}} 
-                    enablePanDownToClose={true} 
+                <BottomSheetModal
+                    ref={bottomSheetRef}
+                    snapPoints={snapPoints}
+                    style={{ zIndex: 2 }}
+                    enablePanDownToClose={true}
                     onChange={handleSheetChanges}
                     backgroundStyle={{
                         backgroundColor: colors["background-secondary"],
@@ -61,6 +61,8 @@ export const BottomSheetProvider: FC<PropsWithChildren> = ({ children }) => {
                         borderTopRightRadius: 32,
                         elevation: 9,
                     }}
+                    keyboardBehavior="interactive"
+                    keyboardBlurBehavior="restore"
                 >
                     <BottomSheetScrollView>
                         {content}
