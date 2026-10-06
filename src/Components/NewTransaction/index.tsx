@@ -7,6 +7,7 @@ import { useBottomSheetContext } from "../../context/bottomsheet.context";
 import { TextInput } from "react-native-gesture-handler";
 import CurrencyInput from "react-native-currency-input";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import { TransactionTypeSelector } from "../SelectType";
 
 export const NewTransaction = () => {
 
@@ -53,6 +54,10 @@ export const NewTransaction = () => {
                     renderTextInput={(textInputProps) => (
                         <BottomSheetTextInput {...textInputProps} />
                     )}
+                />
+                <TransactionTypeSelector
+                    typeId={transaction.typeId}
+                    setTransactionType={(typeId) => setTransactionData("typeId", typeId)}
                 />
             </View>
         </View>
