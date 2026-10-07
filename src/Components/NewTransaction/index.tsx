@@ -8,6 +8,7 @@ import { TextInput } from "react-native-gesture-handler";
 import CurrencyInput from "react-native-currency-input";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { TransactionTypeSelector } from "../SelectType";
+import { SelectionCategoryModal } from "../SelectCategoryModal";
 
 export const NewTransaction = () => {
 
@@ -55,6 +56,12 @@ export const NewTransaction = () => {
                         <BottomSheetTextInput {...textInputProps} />
                     )}
                 />
+
+                <SelectionCategoryModal 
+                    selectedCategory={transaction.categoryId}
+                    onSelect={(categoryId) => setTransactionData("categoryId", categoryId)}
+                />
+
                 <TransactionTypeSelector
                     typeId={transaction.typeId}
                     setTransactionType={(typeId) => setTransactionData("typeId", typeId)}
