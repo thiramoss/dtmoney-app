@@ -9,6 +9,11 @@ import CurrencyInput from "react-native-currency-input";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { TransactionTypeSelector } from "../SelectType";
 import { SelectionCategoryModal } from "../SelectCategoryModal";
+import { transactionSchema } from "./schema";
+import * as Yup from "yup";
+import { AppButton } from "../AppButton";
+
+type ValidationErrorsTypes = Record<keyof CreateTransactionInterface, string>
 
 export const NewTransaction = () => {
 
@@ -20,6 +25,29 @@ export const NewTransaction = () => {
         typeId: 0,
         value: 0,
     });
+
+    const [validationErrors, setValidationsErrors] = useState<ValidationErrorsTypes>();
+
+    const handleCreateTransaction = async () => {
+        try {
+            await transactionSchema.validate(transaction, {
+                abortEarly: false,
+            })
+        } catch (error) {
+            if (error instanceof Yup.ValidationError) {
+                const errors = {} as ValidationErrorsTypes;
+
+                error.inner.forEach((err) => {
+                    if (err.path) {
+                        errors[err.path as keyof CreateTransactionInterface] = err.message;
+                    }
+                })
+
+                setValidationsErrors(errors)
+            }
+        }
+    }
+    console.log(validationErrors)
 
     const setTransactionData = (key: keyof CreateTransactionInterface, value: string | number) => {
         setTransation(prevData => ({
@@ -57,7 +85,7 @@ export const NewTransaction = () => {
                     )}
                 />
 
-                <SelectionCategoryModal 
+                <SelectionCategoryModal
                     selectedCategory={transaction.categoryId}
                     onSelect={(categoryId) => setTransactionData("categoryId", categoryId)}
                 />
@@ -66,6 +94,10 @@ export const NewTransaction = () => {
                     typeId={transaction.typeId}
                     setTransactionType={(typeId) => setTransactionData("typeId", typeId)}
                 />
+
+                <View className="my-4">
+                    <AppButton onPress={handleCreateTransaction}>Registrar</AppButton>
+                </View>
             </View>
         </View>
     )
