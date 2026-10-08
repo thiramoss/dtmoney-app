@@ -3,12 +3,14 @@ import { TransactionCategory } from "../shared/interfaces/https/transaction-cate
 import * as transactionServices from "../shared/services/dt-money/transaction.service";
 import { CreateTransactionInterface } from "../shared/interfaces/https/create-transaction";
 import { Transaction } from "../shared/interfaces/https/transaction";
+import { TotalTransactions } from "../shared/interfaces/https/total-transactions";
 
 export type TransactionContextType = {
     fetchCategories: () => Promise<void>;
     categories: TransactionCategory[];
     createTransaction: (transaction: CreateTransactionInterface) => Promise<void>;
     fetchTransactions: () => Promise<void>;
+    totalTransactions: TotalTransactions;
 };
 
 export const TransactionContext = createContext({} as TransactionContextType);
@@ -18,6 +20,11 @@ export const TransactionContextProvider: FC<PropsWithChildren> = ({
 }) => {
     const [categories, setCategories] = useState<TransactionCategory[]>([]);
     const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const [totalTransactions, setTotalTransaction] = useState<TotalTransactions>({
+        expense: 0,
+        revenue: 0,
+        total: 0,
+    })
 
     const fetchCategories = async () => {
         const categoriesResponse = await transactionServices.getTransactionCategories();
@@ -34,13 +41,15 @@ export const TransactionContextProvider: FC<PropsWithChildren> = ({
             perPage: 5,
         })
         setTransactions(transactionResponse.data);
+        setTotalTransaction(transactionResponse.totalTransactions);
     }, [])
     return (
         <TransactionContext.Provider value={{
             fetchCategories,
             categories,
             createTransaction,
-            fetchTransactions
+            fetchTransactions,
+            totalTransactions
         }}
         >
             {children}
