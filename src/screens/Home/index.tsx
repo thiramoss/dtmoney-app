@@ -6,11 +6,12 @@ import { useEffect } from "react";
 import { useTransactionContext } from "../../context/transaction.context";
 import { useErrorHandler } from "../../shared/hooks/useErrorHandler";
 import { ListHeader } from "./ListHeader";
+import { TransactionCard } from "./TransactionCard";
 
 export const Home = () => {
 
     const {handleLogout} = useAuthContext();
-    const { fetchCategories, fetchTransactions } = useTransactionContext();
+    const { fetchCategories, fetchTransactions, transactions } = useTransactionContext();
     const { handleError } = useErrorHandler();
 
     const handleFetchCategories = async () => {
@@ -33,8 +34,9 @@ export const Home = () => {
             <FlatList 
                 className="bg-background-primary"
                 ListHeaderComponent={ListHeader}
-                data={[]}
-                renderItem={() => <></>}
+                data={transactions}
+                keyExtractor={({ id }) => `transaction-${id}`}
+                renderItem={({item}) => <TransactionCard transaction={item}/>}
             />
             
         </SafeAreaView>
