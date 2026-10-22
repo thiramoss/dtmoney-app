@@ -31,14 +31,14 @@ export const DeleteModal: FC<Params> = ({
                                         <Text className="text-white text-xl">Apagar Transação</Text>
                                     </View>
                                     <TouchableOpacity>
-                                        <MaterialIcons name="close" color={colors.gray[800]} size={25}/>
+                                        <MaterialIcons name="close" color={colors.gray[800]} size={25} onPress={hideModal}/>
                                     </TouchableOpacity>
                                 </View>
                                 <View className="p-3 flex-1 border-b border-gray-300 items-center justify-center">
                                     <Text className="text-gray-500 text-lg leading-8">Tem certeza que deseja apagar essa transação? Esta ação não pode ser desfeita</Text>
                                 </View>
                                 <View className="flex-row justify-end gap-4 w-full p-6 pr-0">
-                                    <TouchableOpacity className="w-[100] bg-none border-2 border-accent-brand items-center rounded-[6] justify-center p-3">
+                                    <TouchableOpacity className="w-[100] bg-none border-2 border-accent-brand items-center rounded-[6] justify-center p-3" onPress={hideModal}>
                                         <Text className="text-accent-brand">Cancelar</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity className="w-[100] bg-none bg-accent-red-background-primary items-center rounded-[6] justify-center p-3" onPress={handleDeleteTransaction}>
